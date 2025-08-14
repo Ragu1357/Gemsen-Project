@@ -1,2 +1,2 @@
 # Gemsen-Project
-This repository is used to gemsen custom task and project task.
+This repository is used to gemsen custom task.
