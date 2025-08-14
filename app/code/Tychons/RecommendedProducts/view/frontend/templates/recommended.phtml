@@ -1,0 +1,104 @@
+<?php
+/** @var \Tychons\RecommendedProducts\Block\Recommended $block */
+/** @var \Tychons\RecommendedProducts\ViewModel\Config $config */
+
+$config   = $block->getViewModel();
+$limit    = (int) $config->getLimit();
+$count    = $block->getRecommendedCount();
+$products = $block->getRecommendedProducts();
+?>
+
+<?php if ($config->isEnabled() && $count > 0): ?>
+    <div class="recommended-products-wrapper">
+        <h2><?= $block->escapeHtml($config->getTitle()) ?></h2>
+
+        <?php if ($count >= $limit): ?>
+            <ol class="products list items product-items recommended-products-carousel">
+                <?php foreach ($products as $_product): ?>
+                    <li class="item product product-item">
+                        <div class="product-item-info" data-container="product-grid">
+                            <!-- Product Image -->
+                            <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>" class="product photo product-item-photo">
+                                <?= $block->getImage($_product, 'category_page_grid')
+                                    ->setImageWidth(150)
+                                    ->setImageHeight(150)
+                                    ->toHtml(); ?>
+                            </a>
+
+                            <!-- Product Details -->
+                            <div class="product details product-item-details">
+                                <strong class="product name product-item-name">
+                                    <a title="<?= $block->escapeHtmlAttr($_product->getName()) ?>"
+                                       href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                                       class="product-item-link">
+                                        <?= $block->escapeHtml($_product->getName()) ?>
+                                    </a>
+                                </strong>
+
+                                <!-- SKU -->
+                                <div class="product-item-sku">
+                                    <span class="label"><?= __('SKU:') ?></span>
+                                    <span class="value"><?= $block->escapeHtml($_product->getSku()) ?></span>
+                                </div>
+
+                                <!-- Price -->
+                                <div class="price-box">
+                                    <?= $block->getLayout()
+                                        ->createBlock(\Magento\Framework\Pricing\Render::class)
+                                        ->render(
+                                            \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+                                            $_product,
+                                            ['zone' => \Magento\Framework\Pricing\Render::ZONE_ITEM_LIST]
+                                        ); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        <?php else: ?>
+            <p class="no-products"><?= __('Not enough recommended products to display.') ?></p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+{
+    ".recommended-products-carousel": {
+        "Tychons_RecommendedProducts/js/recommended-carousel": {}
+    }
+}
+</script>
+
+<script>
+    function addToCart(productId, button) {
+        var qty = $(button).closest('.product-item-info').find('.qty').val();
+        var formKey = '<?= $block->getFormKey() ?>'; // Ensure form key is included for security
+        $.ajax({
+            url: '<?= $block->getUrl('checkout/cart/add') ?>',
+            data: {
+                product: productId,
+                qty: qty,
+                form_key: formKey
+            },
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function() {
+                $(button).attr('disabled', true);
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Product added to cart!');
+                    // Optionally update cart count or redirect to cart page
+                } else {
+                    alert('Error adding product to cart.');
+                }
+                $(button).attr('disabled', false);
+            },
+            error: function() {
+                alert('An error occurred. Please try again.');
+                $(button).attr('disabled', false);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+/* Slider */
+.slick-loading .slick-list {
+    background: #fff url('./ajax-loader.gif') center center no-repeat;
+}
+
+/* Arrows */
+.slick-prev,
+.slick-next {
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    transform: translate(0, -50%);
+    cursor: pointer;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-family: sans-serif;
+    font-size: 35px;
+    line-height: 1;
+    opacity: 0.9;
+    color: #443e3e;
+}
+
+.slick-prev { left: 0; }
+.slick-prev:before { content: "<"; }
+.slick-next { right: 0; }
+.slick-next:before { content: ">"; }
+
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before {
+    opacity: .25;
+}
+
+/* Dots */
+.slick-dotted.slick-slider {
+    margin-bottom: 30px;
+}
+.slick-dots {
+    position: relative; /* Keep centered relative to carousel */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex !important;
+    justify-content: center;
+    padding: 10px 0;
+    margin-top: 10px;
+    list-style: none;
+}
+.slick-dots li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+}
+.slick-dots li button {
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border-radius: 50%;
+    border: none;
+    color: #ccc; /* light grey */
+    opacity: 1; /* make sure grey is visible */
+}
+.slick-dots li.slick-active button {
+    background-color: #1979c3;
+}
+
+/* Wrapper */
+.recommended-products-wrapper {
+    padding: 0px 40px;
+    text-align: center;
+    background-color: #ffffff;
+    margin:auto;
+}
+
+.recommended-products-wrapper h2 {
+    font-size: 24px;
+    font-weight: 300;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+/* Carousel */
+.recommended-products-carousel {
+    position: relative;
+    padding: 0 40px;
+}
+.recommended-products-carousel .product-item {
+    padding: 0 10px;
+    text-align: center;
+}
+.recommended-products-carousel .product-item-info {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px 15px 45px 15px; /* extra bottom padding */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 90%; /* slightly narrower */
+    margin: 0 auto;
+}
+
+/* Image Resize */
+.recommended-products-carousel .product-item-photo {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 150px;
+    height: 150px;
+}
+.recommended-products-carousel .product-item-photo img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Price Resize */
+.recommended-products-carousel .price {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.recommended-products-carousel .price-label {
+    font-size: 0.9rem; /* same size as Dealer Cost */
+    color: #777;
+}
+
+/* Override MAP & MSRP font size */
+.min-advertised-price-box,
+.msrp-price-box {
+    font-size: 0.9rem !important; 
+    line-height: 1.2; 
+    padding-top: 0px;
+}

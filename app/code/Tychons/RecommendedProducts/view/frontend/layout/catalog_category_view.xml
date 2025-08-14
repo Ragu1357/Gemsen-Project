@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Tychons_RecommendedProducts::css/slick.css"/>
+        <css src="Tychons_RecommendedProducts::css/slick-theme.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Tychons\RecommendedProducts\Block\Recommended"
+                   name="recommended.products"
+                   template="Tychons_RecommendedProducts::recommended.phtml"
+                   before="-">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Tychons\RecommendedProducts\ViewModel\Config</argument>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="component" xsi:type="string">Tychons_RecommendedProducts/js/recommended-carousel</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
